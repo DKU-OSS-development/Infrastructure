@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-api
+  namespace: claude-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend-api
+  template:
+    metadata:
+      labels:
+        app: backend-api
+    spec:
+      containers:
+        - name: backend
+          image: <본인ID>/backend:v1  # 아까 올린 이미지 ID
+          ports:
+            - containerPort: 8000
+          env:
+            - name: CLAUDE_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: CLAUDE_API_KEY
+
+          # [핵심] 컨테이너 내부의 /app/data 폴더를 외부 창고(PVC)와 연결
+          volumeMounts:
+            - mountPath: /app/data
+              name: sqlite-storage
+
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+
+      # [핵심] 사용할 PVC 지정
+      volumes:
+        - name: sqlite-storage
+          persistentVolumeClaim:
+            claimName: sqlite-pvc
