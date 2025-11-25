@@ -7,7 +7,7 @@ metadata:
 spec:
   storageClassName: manual
   capacity:
-    storage: 1Gi        # SQLite 파일용이라 1GB면 차고 넘침
+    storage: 1Gi       
   accessModes:
     - ReadWriteOnce
   hostPath:
