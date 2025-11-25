@@ -16,12 +16,12 @@ spec:
       containers:
         - name: frontend
           # ▼▼▼ 1번 과정에서 만든(푸시한) 이미지 주소로 꼭 변경하세요! ▼▼▼
-          image: YOUR_DOCKER_ID/frontend:v1
+          image: leeon3345/backend:v1
           ports:
             - containerPort: 80
           resources:
             requests:
-              memory: "64Mi"   # Nginx는 매우 가벼움
+              memory: "64Mi"   # Nginx
               cpu: "50m"
             limits:
               memory: "128Mi"  # 128MB면 충분
