@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: leeon3345/backend:v1  # 아까 올린 이미지 ID
+          image: leeon3345/backend:v1
           ports:
             - containerPort: 8000
           env:
@@ -24,12 +24,9 @@ spec:
                 secretKeyRef:
                   name: app-secrets
                   key: CLAUDE_API_KEY
-
-          # [핵심] 컨테이너 내부의 /app/data 폴더를 외부 창고(PVC)와 연결
           volumeMounts:
             - mountPath: /app/data
               name: sqlite-storage
-
           resources:
             requests:
               memory: "256Mi"
@@ -37,9 +34,21 @@ spec:
             limits:
               memory: "512Mi"
               cpu: "500m"
-
-      # [핵심] 사용할 PVC 지정
       volumes:
         - name: sqlite-storage
           persistentVolumeClaim:
             claimName: sqlite-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+  namespace: claude-app
+spec:
+  selector:
+    app: backend-api
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
+  type: ClusterIP
