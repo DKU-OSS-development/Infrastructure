@@ -24,6 +24,12 @@ spec:
                 secretKeyRef:
                   name: app-secrets
                   key: CLAUDE_API_KEY
+            - name: SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: SECRET_KEY
+                  
           volumeMounts:
             - mountPath: /app/data
               name: sqlite-storage
