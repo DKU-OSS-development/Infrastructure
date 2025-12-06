@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: leeon3345/backend:v1
+          image: leeon3345/backend:v2
           ports:
             - containerPort: 8000
           env:

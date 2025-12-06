@@ -16,7 +16,7 @@ spec:
       containers:
         - name: frontend
           # ▼▼▼ 1번 과정에서 만든(푸시한) 이미지 주소로 꼭 변경 ▼▼▼
-          image: leeon3345/frontend:v6
+          image: leeon3345/frontend:v9
           imagePullPolicy: Always
           ports:
             - containerPort: 80
