@@ -130,14 +130,14 @@ kubectl rollout restart deployment backend-api -n claude-app
 kubectl rollout restart deployment frontend-app -n claude-app
 ```
 
-### 서비스 접속 테스트 (로컬)
+### 서비스 접속 테스트 
 
 ```bash
-# 윈도우 브라우저에서 접속하기 위한 포트 포워딩
-kubectl port-forward svc/frontend-service 8080:80 -n claude-app
+kubectl port-forward -n ingress-nginx service/ingress-nginx-controller 9090:80 --address 0.0.0.0
+ngrok http 9090
 ```
 
-브라우저 접속: `http://localhost:8080`
+브라우저 접속: ` https://spathulate-miley-unfacetious.ngrok-free.dev`
 
 ---
 
